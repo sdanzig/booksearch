@@ -26,7 +26,7 @@ const BookModal: React.FC<Props> = ({ book, onClose }) => {
         <button onClick={onClose} className="absolute top-4 right-4 text-2xl font-bold text-blue-500">
           &times;
         </button>
-        <img className="h-40 rounded-lg w-full object-cover mb-4" src={book.imageUrl} alt={book.title} />
+        <img className="rounded-lg w-full object-contain mb-4" src={book.imageUrl} alt={book.title} />
         <h3 className="text-2xl text-blue-700 font-bold mb-2">{book.title}</h3>
         <h4 className="text-blue-500 italic mb-3">{book.authors.join(', ')}</h4>
         <p className="text-gray-800">{book.description}</p>
