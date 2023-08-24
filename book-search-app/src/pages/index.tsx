@@ -39,7 +39,9 @@ const Home: React.FC = () => {
 
     return (
         <div className="container mx-auto p-8 bg-gradient-to-r from-gray-100 via-blue-100 to-gray-100 shadow-lg">
-            <h1 className="text-6xl font-bold mb-8 text-blue-800 underline">Book Search</h1>
+            <h1 className="text-8xl font-extrabold mb-8 text-blue-800 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800">
+                Book Search
+            </h1>
             <form onSubmit={handleSearch} className="flex space-x-4 mb-8">
                 <input
                     className="flex-grow border-2 border-blue-300 p-2 rounded-lg shadow-md text-black placeholder-gray-600"
@@ -53,7 +55,9 @@ const Home: React.FC = () => {
                 </button>
             </form>
             {isLoading ? (
-                <div className="text-blue-500 text-3xl font-semibold">Loading...</div>
+                <div className="text-blue-500 text-4xl font-bold animate-pulse">
+                    Loading...
+                </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8">
                     {books.map((book) => (
