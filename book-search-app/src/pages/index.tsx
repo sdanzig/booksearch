@@ -15,10 +15,13 @@ const Home: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [books, setBooks] = useState<Book[]>([]);
     const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchBooks = async () => {
+        setIsLoading(true);
         const response = await axios.get(`http://localhost:8000/search/${searchTerm}`);
         setBooks(response.data.books);
+        setIsLoading(false);
     };
 
     const handleSearch = (e: FormEvent) => {
@@ -45,15 +48,19 @@ const Home: React.FC = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-5 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 shadow-md transition duration-200 ease-in-out transform hover:-translate-y-1">
+                <button className="bg-blue-500 text-white px-5 py-2 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105 hover:bg-blue-600">
                     Search
                 </button>
             </form>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8">
-                {books.map((book) => (
-                    <BookCard key={book.id} book={book} onClick={() => handleOpenModal(book)} />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className="text-blue-500 text-3xl font-semibold">Loading...</div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-8">
+                    {books.map((book) => (
+                        <BookCard key={book.id} book={book} onClick={() => handleOpenModal(book)} />
+                    ))}
+                </div>
+            )}
             {selectedBook && <BookModal book={selectedBook} onClose={handleCloseModal} />}
         </div>
     );
