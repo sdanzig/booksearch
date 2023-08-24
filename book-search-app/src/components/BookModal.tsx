@@ -7,6 +7,14 @@ type Props = {
 
 const BookModal: React.FC<Props> = ({ book, onClose }) => {
     const ref = useRef(null);
+    const [imageUnavailable, setImageUnavailable] = useState(false);
+
+    const handleImageError = (e: any) => {
+        e.currentTarget.onerror = null;
+        e.currentTarget.alt = 'Image Unavailable';
+        setImageUnavailable(true);
+    };
+
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -32,25 +40,19 @@ const BookModal: React.FC<Props> = ({ book, onClose }) => {
         : "bg-white rounded-lg w-3/4 md:w-1/2 lg:w-1/3 p-8 shadow-2xl relative overflow-y-auto max-h-modal transition-all duration-300 ease-in-out transform scale-95 opacity-0";
 
         return (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out opacity-100">
-                <div ref={ref} className="bg-white rounded-lg w-3/4 md:w-1/2 lg:w-1/3 p-8 shadow-2xl relative overflow-y-auto max-h-modal transition-all duration-300 ease-in-out transform scale-100 opacity-100">
+            <div className={modalClasses}>
+                <div ref={ref} className={contentClasses}>
                     <button onClick={onClose} className="absolute top-4 right-4 text-2xl font-bold text-blue-500">
                         &times;
                     </button>
-                    <div className="rounded-lg w-full object-contain mb-4 bg-gray-200 p-4 flex items-center justify-center text-gray-600">
+                    <div className="rounded-lg w-full object-contain mb-4 bg-gray-200 p-4 flex items-center justify-center text-gray-600 relative">
                         <img
                             className="rounded-lg w-full object-contain"
                             src={book.imageUrl}
                             alt={book.title}
-                            onError={(e) => {
-                                e.currentTarget.onerror = null;
-                                e.currentTarget.src = 'path/to/your/placeholder.png'; // Replace with your placeholder image or leave it blank for text
-                                e.currentTarget.alt = 'Image Unavailable';
-                            }}
+                            onError={handleImageError}
                         />
-                        <div className="absolute text-center">
-                            Image Unavailable
-                        </div>
+                        {imageUnavailable && <div className="absolute text-center">Image Unavailable</div>}
                     </div>
                     <h3 className="text-2xl text-blue-700 font-bold mb-2">{book.title}</h3>
                     <h4 className="text-blue-500 italic mb-3">{book.authors.join(', ')}</h4>
@@ -58,6 +60,6 @@ const BookModal: React.FC<Props> = ({ book, onClose }) => {
                 </div>
             </div>
         );        
-};
-
-export default BookModal;
+    };
+    
+    export default BookModal;

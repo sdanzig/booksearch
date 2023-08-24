@@ -19,7 +19,8 @@ const Home: React.FC = () => {
 
     const fetchBooks = async () => {
         setIsLoading(true);
-        const response = await axios.get(`http://localhost:8000/search/${searchTerm}`);
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:8000';
+        const response = await axios.get(`${serverUrl}/api/books/${searchTerm}`);
         setBooks(response.data.books);
         setIsLoading(false);
     };
