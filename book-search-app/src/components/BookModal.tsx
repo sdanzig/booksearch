@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type Props = {
     book: Book;
@@ -7,8 +7,11 @@ type Props = {
 
 const BookModal: React.FC<Props> = ({ book, onClose }) => {
     const ref = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        setIsVisible(true);
+        
         const handleClickOutside = (event: any) => {
             if (ref.current && !ref.current.contains(event.target)) {
                 onClose();
@@ -20,9 +23,17 @@ const BookModal: React.FC<Props> = ({ book, onClose }) => {
         };
     }, [onClose]);
 
+    const modalClasses = isVisible
+        ? "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out opacity-100"
+        : "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none";
+
+    const contentClasses = isVisible
+        ? "bg-white rounded-lg w-3/4 md:w-1/2 lg:w-1/3 p-8 shadow-2xl relative overflow-y-auto max-h-modal transition-all duration-300 ease-in-out transform scale-100 opacity-100"
+        : "bg-white rounded-lg w-3/4 md:w-1/2 lg:w-1/3 p-8 shadow-2xl relative overflow-y-auto max-h-modal transition-all duration-300 ease-in-out transform scale-95 opacity-0";
+
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-all duration-300 ease-in-out opacity-100">
-            <div ref={ref} className="bg-white rounded-lg w-3/4 md:w-1/2 lg:w-1/3 p-8 shadow-2xl relative overflow-y-auto max-h-modal transition-transform duration-300 transform scale-100">
+        <div className={modalClasses}>
+            <div ref={ref} className={contentClasses}>
                 <button onClick={onClose} className="absolute top-4 right-4 text-2xl font-bold text-blue-500">
                     &times;
                 </button>
