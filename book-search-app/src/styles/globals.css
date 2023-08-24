@@ -25,3 +25,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.max-h-modal {
+  max-height: calc(100vh - 4rem);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
