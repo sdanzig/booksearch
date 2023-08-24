@@ -23,14 +23,16 @@ async def search_books(keyword: str):
     data = response.json()
     books = []
 
-    for item in data['items']:
+    for item in data.get('items', []):
+        volume_info = item.get('volumeInfo', {})
         book = {
-            'id': item['id'],
-            'title': item['volumeInfo']['title'],
-            'authors': item['volumeInfo'].get('authors', []),
-            'description': item['volumeInfo'].get('description', ''),
-            'imageUrl': item['volumeInfo'].get('imageLinks', {}).get('thumbnail', '')
+            'id': item.get('id', 'N/A'),
+            'title': volume_info.get('title', 'Title not available'),
+            'authors': volume_info.get('authors', ['Author(s) not available']),
+            'description': volume_info.get('description', 'Description not available'),
+            'imageUrl': volume_info.get('imageLinks', {}).get('thumbnail', 'URL not available')
         }
         books.append(book)
 
     return {'books': books}
+
