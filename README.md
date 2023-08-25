@@ -1,6 +1,6 @@
 # BookSearch Web Application
 
-This repository contains the UI and server for the BookSearch web application, a platform for searching for books by title or author.
+Welcome to the BookSearch Web Application, where books are more than just dead trees covered in ink!  This repository contains the UI and server for BookSearch, a platform for searching for books by title or author.
 
 ## Overview
 
@@ -14,6 +14,31 @@ This directory includes a FastAPI-based server with one endpoint for searching f
 
 Both components include Dockerfiles for containerization, allowing easy deployment and scaling.
 
+## Prerequisites
+
+Before running the application, you'll need to install the following:
+
+### For the UI:
+
+- **Node.js**: This is required to run the Next.js application. You can download it [here](https://nodejs.org/).
+- **npm**: Usually installed with Node.js, this package manager will help you install other necessary dependencies.
+- **Next.js**: Install it globally using the command:
+  ```bash
+  npm install -g next
+  ```
+
+### For the Server:
+
+- **Python**: Download the appropriate version (3.8 or later) from the [official website](https://www.python.org/downloads/).
+- **FastAPI**: Install it using pip:
+  ```bash
+  pip install fastapi
+  ```
+- **uvicorn**: Install it using pip:
+  ```bash
+  pip install uvicorn
+  ```
+
 ## Running Locally
 
 ### Running the Server
@@ -24,8 +49,6 @@ To run the server locally, navigate to the `book-server` directory and execute t
 uvicorn main:app --reload
 ```
 
-This will start the server with hot reloading enabled, making it ideal for development.
-
 ### Running the UI
 
 To run the UI locally, navigate to the `book-search-app` directory and execute the following command:
@@ -33,8 +56,6 @@ To run the UI locally, navigate to the `book-search-app` directory and execute t
 ```bash
 npm run dev
 ```
-
-This will start the development server, and you can access the UI at `http://localhost:3000`.
 
 ## Containerization
 
@@ -56,6 +77,5 @@ docker build -t book-server .
 
 ## Additional Information
 
-- Ensure that you have the necessary dependencies installed, including Node.js for the UI and Python for the server.
 - Make sure the ports 3000 and 8000 are available on your system, or modify the configurations accordingly.
 - CORS protection is currently disabled for ease of development and testing.
