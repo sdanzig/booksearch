@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Book } from '../types';
 
 type Props = {
     book: Book;
@@ -6,7 +7,7 @@ type Props = {
 };
 
 const BookModal: React.FC<Props> = ({ book, onClose }) => {
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
     const [imageUnavailable, setImageUnavailable] = useState(false);
 
     const handleImageError = (e: any) => {

@@ -2,14 +2,7 @@ import { useState, FormEvent } from 'react';
 import axios from 'axios';
 import BookCard from '../components/BookCard';
 import BookModal from '../components/BookModal';
-
-type Book = {
-    id: string;
-    title: string;
-    authors: string[];
-    description: string;
-    imageUrl: string;
-};
+import { Book } from '../types';
 
 const Home: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
